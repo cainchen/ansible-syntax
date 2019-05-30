@@ -1,0 +1,17 @@
+--- Example ---
+- name: "Defined full name"
+  set_fact: name_def="{{ item }}"
+  with_items:
+    - peter.wu
+    - jack.lee
+  register: name_rl
+
+- name: "Get the CN"
+  set_fact: fullname="{{ name_rl.results | map(attribute='ansible_facts.name_def') | list |replace('.','') }}"
+
+/* Result */
+
+peterwu
+jacklee
+
+--- End ---
